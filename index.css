@@ -1,0 +1,109 @@
+body
+    {
+    background-image:url(image/imageai.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Apple Chancery, cursive;
+    color:white;
+
+    
+    }
+   
+nav ul
+    {
+    padding: 0px;
+    padding: 0px;
+    list-style-type: none;
+    text-align: center;
+    font-size: 25px;
+    }
+nav li
+      { 
+        display: inline-block;
+        width: 160px;
+        height: 80px;
+        margin:0px;
+        padding:0px;        
+        line-height: 80px;
+      }
+
+nav li :hover
+             {
+              color: red;
+             }
+
+nav li a
+        {
+          display: block;
+          text-decoration: none;
+          color:#FC6E1C;
+        }
+
+section{
+        text-align: center;
+       }
+.titrelogin-index
+    {
+      
+    	text-align: center;
+      color: white;
+      text-shadow: 1px 3px black;
+      margin-bottom: 8%;
+    }
+
+.inputconexion
+{
+  margin: auto;
+  margin-top: 20%;
+}
+.h1inscription
+{
+  text-align: center;
+}
+.tablinscri
+{
+  margin:auto;
+}
+
+
+.div-tableau-connexion
+{
+    width: 90%;
+    background-color: #8fe2fb6e;
+    padding: 1%;
+    height: 300PX;
+    border-radius: 4% 4%;
+}
+.oc-section-index1
+{
+  display: flex;
+  justify-content: space-around;
+}
+.oc-article-actu
+{
+    width: 59%;
+    background-color: #11173187;
+    height: 300px;
+    overflow: overlay;
+    border-radius: 4% 4%;
+}
+
+
+/*PARTIE INSCRIPTION*/
+
+.oc-paneaulogin-inscription
+{
+  background-color: red;
+  background-color: #aae9fe4a;
+    width: 34%;
+    padding: 2%;
+    margin: auto;
+}
+.codeerreur
+{
+  font-size: 20px;
+  color:red;
+  position: absolute;
+  margin-left: 1px;
+  margin-top:24%;
+}
