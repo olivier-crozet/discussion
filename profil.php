@@ -12,7 +12,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=discussion;charset=utf8', 'root', ''
       
     // unset ($_SESSION ['login'] );}
 //      CONECTION BASE DE DONNE MYSQL
-//$connexion = mysqli_connect("localhost","root","","moduleconnexion");
+//$connexion = mysqli_connect("localhost","root","","discussion");
 
 //      CONECTION BASE DE DONNER PDO
 
@@ -20,9 +20,19 @@ $bdd = new PDO('mysql:host=localhost;dbname=discussion;charset=utf8', 'root', ''
 if(isset($_SESSION['login'])) 
 {$_SESSION['login'];
   $getid = intval($_SESSION['login']); //securise la variable evite l'injection de text bizare
+  $log = $_SESSION['login'];
 
- 
 
+  //requete pdo qui bug
+ $reqecolog =$bdd->prepare("SELECT login FROM utilisateurs where id=\'".$_SESSION['id']."\'");
+ //$reqecolog =execute(array()); 
+$nomuser = $reqecolog->fetch($reqecolog,$bdd); 
+ //$reqecolo = $reqecolog->fetch();
+ var_dump($nomuser);
+ var_dump($reqecolog);
+ //$result = $bdd->query('SELECT MAX(NumFacture) AS dern FROM Facture');
+     
+    
                 // WHEN YOU PUSH BUTTON test 1
 
       $login = $_SESSION['login']; //evite l'injection ?? what the fuck??
@@ -38,10 +48,7 @@ if(isset($_SESSION['login']))
                  $id = $_SESSION['id'];
                  //$_SESSION['login']; //= $login;
                  $sessionlogin = $_SESSION['login'];
-                          $requser=$bdd->prepare("UPDATE utilisateurs SET login='$login' where login='$sessionlogin'");
-                          $requser->execute(array($getid));// what a fuck (repure infos via url??)
-                          $userinfo = $requser->fetch();
-                     var_dump($userinfo);
+                          
 
   //   REQUETE ET EXUCUSION EN MYSQLI
  /*  $requetmodif = "UPDATE utilisateurs SET login = '$login', prenom = '$prenom', nom = '$nom', password = '$password' WHERE login = '".$_SESSION['login']."'";
@@ -51,6 +58,13 @@ if(isset($_SESSION['login']))
                
                          if ( (strlen($_POST["newpassword"])) >3 && (strlen($_POST["newpassword2"]) >3) && $_POST["newpassword"] == $_POST["newpassword2"])
                          {
+
+
+                          $requser=$bdd->prepare("UPDATE utilisateurs SET login='$login' where login='$sessionlogin'");
+                          $requser->execute(array($getid));// what a fuck (repure infos via url??)
+                          $userinfo = $requser->fetch();
+                     var_dump($userinfo);
+
       
                         $reqmdp = $bdd->prepare("UPDATE utilisateurs SET password = '$password' where id=$id");
                         $reqmdp->execute(array($getid));// what a fuck (repure infos via url??)
@@ -97,7 +111,7 @@ else
    
           <!--HTML TABLEAU INPUT-->
 
-                          <h1>profil de <?php echo $login; ?> </h1>
+                          <h1>profil de <?php echo $reqecolog ; ?> </h1>
 
 </header>
 
