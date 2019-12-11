@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-$_SESSION['login'];
-$samerelapute = mysqli_connect("localhost","root","","discussion");
 
+//$samerelapute = mysqli_connect("localhost","root","","discussion");
+$bdd = new PDO('mysql:host=localhost;dbname=discussion;charset=utf8', 'root', '');
 //$reqeco = "SELECT `login` FROM `utilisateurs` where login=$_SESSION['login']";
 //$reqecho = mysqli_query($samerelapute, $reqeco);
 //echo $reqecho;
@@ -18,56 +18,58 @@ $samerelapute = mysqli_connect("localhost","root","","discussion");
 
 
 if(isset($_SESSION['login'])) 
-{
+{$_SESSION['login'];
   $getid = intval($_SESSION['login']); //securise la variable evite l'injection de text bizare
 
  
 
                 // WHEN YOU PUSH BUTTON test 1
 
-if (isset($_POST['modif']))
-  {       
-    $login = htmlspecialchars($_POST['newlogin']) ; //evite l'injection ?? what the fuck??
+      $login = $_SESSION['login']; //evite l'injection ?? what the fuck??
+      if (isset($_POST['modif']))
+       {       
+       $login = htmlspecialchars($_POST['newlogin']) ; //evite l'injection ?? what the fuck??
+       $password = sha1($_POST['newpassword']);//sha1 achage
+       $password2 = sha1($_POST['newpassword2']);//sha1 et un cryptage mais c mieux hash //
 
-    $password = sha1($_POST['newpassword']);//sha1 achage
-    $password2 = sha1($_POST['newpassword2']);//sha1 et un cryptage mais c mieux hash //
-
-if ( (strlen($login)) >0  )
-  
-  {
-   //REQUETE PDO
-    $id = $_SESSION['id'];
-   $requser = $bdd->prepare("UPDATE `utilisateurs` SET `login`='$login', where id=$id");
-
-   $requser->execute(array($getid));// what a fuck (repure infos via url??)
-   $userinfo = $requser->fetch();
-   $_SESSION['login'] = $login;
+              if ( (strlen($login)) >0  )
+                {
+                                    //REQUETE PDO
+                 $id = $_SESSION['id'];
+                 //$_SESSION['login']; //= $login;
+                 $sessionlogin = $_SESSION['login'];
+                          $requser=$bdd->prepare("UPDATE utilisateurs SET login='$login' where login='$sessionlogin'");
+                          $requser->execute(array($getid));// what a fuck (repure infos via url??)
+                          $userinfo = $requser->fetch();
+                     var_dump($userinfo);
 
   //   REQUETE ET EXUCUSION EN MYSQLI
  /*  $requetmodif = "UPDATE utilisateurs SET login = '$login', prenom = '$prenom', nom = '$nom', password = '$password' WHERE login = '".$_SESSION['login']."'";
    $inser= mysqli_query($connexion, $requetmodif);  */
 
-  }
-  else
-  {
-     $erreur="completer les trois premier champ";
-  }
-  if ( (strlen($_POST["newpassword"])) >3 && (strlen($_POST["newpassword2"]) >3))
-  {
+                
+               
+                         if ( (strlen($_POST["newpassword"])) >3 && (strlen($_POST["newpassword2"]) >3) && $_POST["newpassword"] == $_POST["newpassword2"])
+                         {
       
-    $reqmdp = $bdd->prepare("UPDATE `utilisateurs` SET `password` = '$password' where id=$id");
-   $reqmdp->execute(array($getid));// what a fuck (repure infos via url??)
-   $usermdp = $reqmdp->fetch();
-   $_SESSION['password'] = $password;
+                        $reqmdp = $bdd->prepare("UPDATE utilisateurs SET password = '$password' where id=$id");
+                        $reqmdp->execute(array($getid));// what a fuck (repure infos via url??)
+                        $usermdp = $reqmdp->fetch();
+                        $_SESSION['password'] = $password;
 
-   $erreur = "le profil a etait modifié !";
-  }
+                             $erreur = "le profil a etait modifié !";
+                          }
+else
+                {
+                   $erreur="completer les trois premier champ";
+                }
+                          }
  
-     else{
-      $erreur = "mot de passe au moin 3 caractere";
-      } 
+                         else{
+                              $erreur = "mot de passe au moin 3 caractere";
+                             } 
 
-}
+              }
 
 
 ?>
@@ -89,18 +91,14 @@ if ( (strlen($login)) >0  )
           --><?php if (!isset($_SESSION['login'])) { echo "<li ><a href=\"inscription.php\">inscription</a></li>";} ?><!--
            --><li ><a href="profil.php">profil</a></li>
               <?php if (!empty($_SESSION['login'] == "admin" )){echo "<li ><a href=\"admin.php\">admin</a></li>";}?>
-           <?php  if  (isset($_SESSION['id'])) { echo  '<li>'.'<a href= "">'.$_SESSION['login'].'</a>'.'</li>';} ?>
+           <?php  if  (isset($_SESSION['id'])) { echo  '<li>'.'<a href= "">'.$login.'</a>'.'</li>';} ?>
            </ul>
        </nav>
    
           <!--HTML TABLEAU INPUT-->
 
-                          <h1>profil de <?php echo $_SESSION['prenom']; ?> </h1>
-   <div class="oc-profil-infouser">
-      <br />
-      <h3>pseudo : <?php echo $_SESSION['login']; ?></h3><!--requpere le login de l'utilisateur -->
+                          <h1>profil de <?php echo $login; ?> </h1>
 
-   </div>
 </header>
 
        <section>  
@@ -114,7 +112,7 @@ if ( (strlen($login)) >0  )
               <label  for="newlogin"> login :</label>
         </td>
         <td>
-              <input type="text" name="newlogin" placeholder="ecrire votre pseudo" value="<?php if(isset($_SESSION['login'])){echo $_SESSION['login'];} ?>">
+              <input type="text" name="newlogin" placeholder="ecrire votre pseudo" value=<?php if(isset($_SESSION['login'])){echo $login;} ?> />
             </td>
           </tr>
        
@@ -123,9 +121,7 @@ if ( (strlen($login)) >0  )
                 <label  for="newpassword">mot de passe :</label>
               </td>
               <td>
-                <?php
-
-                ?>
+            
                 <input type="password" name="newpassword" placeholder="ecrire votre mot de passe">
               </td>
           </tr>
