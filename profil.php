@@ -67,13 +67,14 @@ $loginid = mysqli_fetch_row($reqlog);
 
                 
                
-                         if ( (strlen($_POST["newpassword"])) >3 && (strlen($_POST["newpassword2"]) >3) && $_POST["newpassword"] == $_POST["newpassword2"])
+                         if ( strlen($_POST["newpassword"]) >3 && strlen($_POST["newpassword2"]) >3 && $_POST["newpassword"] == $_POST["newpassword2"])
                          {
 
 
                           $requser=$bdd->prepare("UPDATE utilisateurs SET login='$login' where login='$sessionlogin'");
                           $requser->execute(array($getid));// what a fuck (repure infos via url??)
                           $userinfo = $requser->fetch();
+                          $_SESSION['login'] = $login;
                      var_dump($userinfo);
 
       
@@ -82,7 +83,7 @@ $loginid = mysqli_fetch_row($reqlog);
                         $usermdp = $reqmdp->fetch();
                         $_SESSION['password'] = $password;
 
-                             header("location profil.php?id=".$_SESSION['id']);
+                             header("location profil.php");
 
 
                              $erreur = "le profil a etait modifié !";
