@@ -87,19 +87,26 @@ $loginid = mysqli_fetch_row($reqlog);
 
 
                              $erreur = "le profil a etait modifié !";
-                          }
-else
-                {
-                   $erreur="completer les trois premier champ";
-                }
-                          }
- 
-                         else{
-                              $erreur = "mot de passe au moin 3 caractere";
-                             } 
+}
 
+       else
+                 {
+                   $erreur = "les mots de passe sont different et doivent faire au moin 4 caractere";
+                 } 
+
+        }
+ 
+             else
+                {
+                   $erreur="completer les trois champ pour modifier";
+                }    
               }
 
+
+else
+                {
+                   $erreur="completer les trois champ pour modifier";
+                }
 
 ?>
 <html>
