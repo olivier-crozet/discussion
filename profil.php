@@ -12,7 +12,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=discussion;charset=utf8', 'root', ''
       
     // unset ($_SESSION ['login'] );}
 //      CONECTION BASE DE DONNE MYSQL
-//$connexion = mysqli_connect("localhost","root","","discussion");
+$connexion = mysqli_connect("localhost","root","","discussion");
 
 //      CONECTION BASE DE DONNER PDO
 
@@ -24,14 +24,25 @@ if(isset($_SESSION['login']))
 
 
   //requete pdo qui bug
- $reqecolog =$bdd->prepare("SELECT login FROM utilisateurs where id=\'".$_SESSION['id']."\'");
- //$reqecolog =execute(array()); 
-$nomuser = $reqecolog->fetch($reqecolog,$bdd); 
+ //$reqecolog =$bdd->prepare("SELECT login FROM utilisateurs where id='".$_SESSION['id']."'");
+ //$reqecolog =execute(array($getid)); 
+
+//$convert = array($reqecolog);
+//var_dump($convert);
+//$comma_separated = implode("",$convert);
+//$comma_separated = http_build_query("",$convert)
+
+//$nomuser = $reqecolog->fetch($reqecolog,$bdd); 
  //$reqecolo = $reqecolog->fetch();
- var_dump($nomuser);
- var_dump($reqecolog);
- //$result = $bdd->query('SELECT MAX(NumFacture) AS dern FROM Facture');
+ //var_dump($comma_separated);
+ //var_dump($reqecolog);
+ 
      
+$reqecolog = "SELECT  login FROM utilisateurs where id='".$_SESSION['id']."'";
+$reqlog = mysqli_query($connexion,$reqecolog);
+$loginid = mysqli_fetch_row($reqlog);
+ 
+ var_dump($loginid) ;
     
                 // WHEN YOU PUSH BUTTON test 1
 
@@ -70,6 +81,9 @@ $nomuser = $reqecolog->fetch($reqecolog,$bdd);
                         $reqmdp->execute(array($getid));// what a fuck (repure infos via url??)
                         $usermdp = $reqmdp->fetch();
                         $_SESSION['password'] = $password;
+
+                             header("location profil.php?id=".$_SESSION['id']);
+
 
                              $erreur = "le profil a etait modifié !";
                           }
@@ -111,7 +125,7 @@ else
    
           <!--HTML TABLEAU INPUT-->
 
-                          <h1>profil de <?php echo $reqecolog ; ?> </h1>
+                          <h1>profil de <?php echo $loginid[0] ; ?> </h1>
 
 </header>
 
