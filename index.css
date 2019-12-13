@@ -131,6 +131,8 @@ nav li a
   width: 40%;
   margin: auto;
   border: solid gold 2px;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 .oc-espacecom
 {
