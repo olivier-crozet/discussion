@@ -36,8 +36,8 @@ $erreur="<p class='codeerreur'>vous n'etes pas connecté !";
               	echo "vous netes pas conecté";
               }
               else{
-               if($_SESSION['login'] == "admin"){
-              	echo "<li ><a href=\"admin.php\">admin</a></li>";
+               if($_SESSION['login']){
+              	echo "<li ><a href=\"discussion.php\">discussion</a></li>";
                        };
                        }?>
               <?php

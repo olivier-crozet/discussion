@@ -39,7 +39,7 @@ nav li a
           color:#FC6E1C;
         }
 
-section{
+  section{
         text-align: center;
        }
 .titrelogin-index
@@ -106,4 +106,33 @@ section{
   position: absolute;
   margin-left: 1px;
   margin-top:24%;
+}
+.oc-titreprofil
+{
+  text-align: center;
+}
+.tableconnexionprofil
+{
+  text-align: end;
+  margin: auto;
+}
+.titrelogin
+{
+  margin: 5%;
+}
+
+/* PARTIE */
+
+
+.oc-div-zonetext1
+{
+  height: 40%;
+  background-color: #80808099;
+  width: 40%;
+  margin: auto;
+  border: solid gold 2px;
+}
+.oc-espacecom
+{
+  margin:auto;
 }

@@ -38,11 +38,9 @@ if(isset($_SESSION['login']))
  //var_dump($reqecolog);
  
      
-$reqecolog = "SELECT  login FROM utilisateurs where id='".$_SESSION['id']."'";
-$reqlog = mysqli_query($connexion,$reqecolog);
-$loginid = mysqli_fetch_row($reqlog);
+
  
- var_dump($loginid) ;
+ 
     
                 // WHEN YOU PUSH BUTTON test 1
 
@@ -83,15 +81,15 @@ $loginid = mysqli_fetch_row($reqlog);
                         $usermdp = $reqmdp->fetch();
                         $_SESSION['password'] = $password;
 
-                             header("location profil.php");
+                             
 
 
-                             $erreur = "le profil a etait modifié !";
+                             $erreur = "le profil a eté modifié !";
 }
 
        else
                  {
-                   $erreur = "les mots de passe sont different et doivent faire au moin 4 caractere";
+                   $erreur = "les mots de passe doivent etre different et doivent faire au moin 4 caractere";
                  } 
 
         }
@@ -107,7 +105,10 @@ else
                 {
                    $erreur="completer les trois champ pour modifier";
                 }
-
+                $reqecolog = "SELECT  login FROM utilisateurs where id='".$_SESSION['id']."'";
+$reqlog = mysqli_query($connexion,$reqecolog);
+$loginid = mysqli_fetch_row($reqlog);
+var_dump($loginid);
 ?>
 <html>
 <head>
@@ -126,14 +127,14 @@ else
            <li ><a  href="index.php">Accueil</a></li><!--
           --><?php if (!isset($_SESSION['login'])) { echo "<li ><a href=\"inscription.php\">inscription</a></li>";} ?><!--
            --><li ><a href="profil.php">profil</a></li>
-              <?php if (!empty($_SESSION['login'] == "admin" )){echo "<li ><a href=\"admin.php\">admin</a></li>";}?>
-           <?php  if  (isset($_SESSION['id'])) { echo  '<li>'.'<a href= "">'.$login.'</a>'.'</li>';} ?>
+              <?php if (!empty($_SESSION['login'] )){echo "<li ><a href=\"discussion.php\">discussion</a></li>";}?>
+           <?php  if  (isset($_SESSION['id'])) { echo  '<li>'.'<a href= "">'.$loginid[0].'</a>'.'</li>';} ?>
            </ul>
        </nav>
    
           <!--HTML TABLEAU INPUT-->
 
-                          <h1>profil de <?php echo $loginid[0] ; ?> </h1>
+                          <h1 class="oc-titreprofil">profil de <?php echo $loginid[0] ; ?> </h1>
 
 </header>
 
@@ -142,13 +143,13 @@ else
   
         <article class="paneaulogin">
           <form  method="POST" action="" >
-        <table>
+        <table class="tableconnexionprofil" >
           <tr>
             <td>
               <label  for="newlogin"> login :</label>
         </td>
         <td>
-              <input type="text" name="newlogin" placeholder="ecrire votre pseudo" value=<?php if(isset($_SESSION['login'])){echo $login;} ?> />
+              <input type="text" name="newlogin" placeholder="ecrire votre pseudo" value=<?php if(isset($loginid[0])){echo $login;} ?> />
             </td>
           </tr>
        
