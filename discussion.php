@@ -32,28 +32,34 @@ $_SESSION['login'];
 
                           <h1>forum de discussion</h1>
  <form method="POST" action="discussion.php">
-<?php
 
+<?php
+	                             //PARTIE INSERTION COMMENTAIRE DANS LA DATABASE
 if (isset($_SESSION['id'])) 
 {	 			 
 	
 	if (isset($_POST['envoi-comentaire']))
 	 {
 		# code...
-	echo "string";
+	
 
 		if (!empty($_POST["entrecom"])) 		
 		{
 		$com = $_POST["entrecom"];
 		$id_user = $_SESSION['id'];
 		$reqcom="INSERT INTO messages(message,id_utilisateur,date) VALUES (\"$com\",\"$id_user\", NOW())";
-
-
-	//	$test1="INSERT INTO messages(message,id_utilisateur,date)
-	//	VALUES (message='blabla',id_utilisateur='10',date='y,m,d')";
-	 			 	$lecom = mysqli_query($connexion, $reqcom);
-	 			 	var_dump($reqcom);
+	 	$lecom = mysqli_query($connexion, $reqcom);
+	 			 	
 	 	}
+	 	else
+	    {
+	    	$erreur="champ vide";
+	    }
+	 	
+	}
+	else
+	{
+	echo"laisser un commentaire ;) ";
 	}
 }
 ?>
@@ -79,7 +85,12 @@ if (isset($_SESSION['id']))
     </div>
     </form>
 </section>
-
+<?php
+	if (isset($erreur))
+		 {
+			echo "<strong>".'<font size= "5px" color="red">'.$erreur.'</font>'."</strong>";
+		}
+?>
 
 </body>
 </html>
