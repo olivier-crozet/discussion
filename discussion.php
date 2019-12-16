@@ -2,7 +2,7 @@
 session_start();
 $connexion = mysqli_connect("localhost","root","","discussion");
 $_SESSION['id'];
-$_SESSION['login'];
+$login = $_SESSION['login'];
 
 ?>
 <html>
@@ -37,39 +37,52 @@ $_SESSION['login'];
 	                             //PARTIE INSERTION COMMENTAIRE DANS LA DATABASE
 if (isset($_SESSION['id'])) 
 {	 			 
-	if (!empty($_POST['envoicomentaire']))
+
+	if (isset($_POST['envoicomentaire']))
 	 {
-		
-		if (!empty($_POST["entrecom"])) 		
-		{   echo "string";
-		$com = $_POST["entrecom"];
-		$id_user = $_SESSION['id'];
+			 	    	$bouton=htmlspecialchars($_POST['entrecom']);
 
-		$reqcom="INSERT INTO messages(message,id_utilisateur,date) VALUES (\"$com\",\"$id_user\",NOW())";
-	 	$lecom = mysqli_query($connexion, $reqcom);
-	 			 	var_dump($lecom);
-	 	}
-	 	else
-	    {
+	 	    if (!empty($_POST["entrecom"])) 		
+	 	    {   
+	 	    	$id_user = $_SESSION['id'];
+
+	 	    	$reqcom="INSERT INTO messages(message,id_utilisateur,date) VALUES (\"$bouton\",\"$id_user\",NOW())";
+	 	    	$lecom = mysqli_query($connexion, $reqcom);
+	 	    	header("location: discussion.php");
+	 			 	
+	 	    }
+	 	    else
+	 	    {
 	    	$erreur="champ vide";
-	    }
-	 	
+	        }	 	
+	        
 	}
-
-}
+	else
+	{}
+unset($bouton);
 
 	                   //AFFICHE DES REQUETTE
 
 	//REQUETTE SELECTION LOGIN UTILSETEURS
-$req_selcet_log = "SELECT  login FROM utilisateurs where id='".$_SESSION['id']."'";
-$req_selcet_log_bdd = mysqli_query($connexion,$req_selcet_log);
-$req_selcet_login_by_id = mysqli_fetch_row($req_selcet_log_bdd);
+//$req_selcet_log = "SELECT  login FROM utilisateurs where id='".$_SESSION['id']."'";
+//$req_selcet_log_bdd = mysqli_query($connexion,$req_selcet_log);
+//$req_selcet_login_by_id = mysqli_fetch_all($req_selcet_log_bdd);
+
+//$_SESSION['id_utilisateur']=$_SESSION['id'];
 
 	//REQUETTE SELECTION COMMENTAIRE ET DATE
-$req_selcet_comdate = "SELECT  message FROM messages where date > (NOW() - INTERVAL 1 WEEK)
- ";
-$req_selcet_comdate_bdd = mysqli_query($connexion,$req_selcet_comdate);
-$req_selcet_com_by_id = mysqli_fetch_all($req_selcet_comdate_bdd);
+//$req_selcet_comdate = "SELECT  message FROM messages where date > (NOW() - INTERVAL 1 WEEK)
+ //";
+
+	                    //REQUETTE MELANGENT LES DEUX TABLE
+ //$req_select_comdate = "SELECT `utilisateurs`.`login`, `messages`.`message`, `messages`.`date` FROM `utilisateurs` , `messages` ORDER BY `date`  DESC LIMIT 35";
+//$req_select_comdate_bdd = mysqli_query($connexion,$req_select_comdate);
+//$req_select_com_by_id = mysqli_fetch_all($req_select_comdate_bdd);
+
+                 //REQUETE JOINTE
+	//$req_jointe_all = mysqli_fetch_all($req_jointe_bdd);
+
+	
 
 
 
@@ -79,35 +92,82 @@ $req_selcet_com_by_id = mysqli_fetch_all($req_selcet_comdate_bdd);
 	        <h2>theme</h2>
 	<div class="oc-div-zonetext1">
 		                       <!--ZONE AFFICHE TEXTE-->
-	 <form method="POST" action="discussion.php">
+	 <form method="POST" action="">
+<?php
+
+
+$req_jointe = "SELECT  login,  message, date FROM utilisateurs LEFT JOIN messages ON utilisateurs.id = messages.id_utilisateur ORDER BY `date`  DESC LIMIT 35";
+	$req_jointe_bdd = mysqli_query($connexion,$req_jointe);
+
+	 	$row = mysqli_fetch_all($req_jointe_bdd);
+	 	
+	 
+
+ ?>
+	
+		
 		   <table>
+		   	
+			<?php 
+			foreach ( $row as $key ):
+				
+			echo $key[0].':'.$key[1].$key[2]."</br>"
+		     
+		?>
+			
+			
+		   </table>
+		   <?php  
+		    endforeach ;
+
+
+	       ?>
+		 
+	    </div>
+	 
+
+		  <!-- <table>
 		   	      <tr>
 		   	      	  <td>
 		         
-		              </td> 
+		              </td> -->
 		            
-		            	<?php foreach ( $req_selcet_com_by_id as $key ): ?>
-		            		<tr class="tbladmin">
-			<td class="tbladmin"><?php echo $req_selcet_login_by_id[0].":".$key[0] ?></td>
+		            	<!--<?php
+
+		            	// foreach ( $req_jointe_all as $key ): 
+
+		            	 	//foreach ($req_selcet_login_by_id as $key1 ): {
+		            	 		# code...
+		            	 	//}
+		            	 	?>
+
+		            		<tr class="tbladmin">-->
+		<!--	<td class="tbladmin"><?php 
+			//if (empty($_POST['envoicomentaire'])) 
+			//{
+				# code...
+			
+			//echo /*$login.":".$key[1].$key[2] ;*/ $req_jointe_all[0] /*}*/ ?></td>
 			
 			
 
 		</tr>
 		
-	<?php endforeach ?>
+	<?php //endforeach ;
+         // endforeach ;	?>
 		           <tr>
 		       
 		           </tr>
-		   </table>
-	</div>
+		   </table
+	</div>>-->
 	<div >	
-		<table class="oc-espacecom">
+		<!--<table class="oc-espacecom">-->
           <tr>
             <td>
               <label  for="entrecom">commentaire :</label>
         </td>
         <td>
-              <input type="text" name="entrecom" placeholder=""><!--php pour laisser le text dans l'input-->
+              <input type="text" name="entrecom" ><!--php pour laisser le text dans l'input-->
             </td>
           </tr>
       </table>
@@ -118,10 +178,18 @@ $req_selcet_com_by_id = mysqli_fetch_all($req_selcet_comdate_bdd);
 </section>
 <?php
 
+}
+
+else 
+{
+	header("location: index.php");
+}
 	if (isset($erreur))
+
 		 {
 			echo "<strong>".'<font size= "5px" color="red">'.$erreur.'</font>'."</strong>";
 		}
+
 ?>
 
 </body>
