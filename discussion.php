@@ -30,7 +30,7 @@ $login = $_SESSION['login'];
    </div>
           <!--HTML TABLEAU INPUT-->
 
-                          <h1>forum de discussion</h1>
+                          <h1 class="titre-discussion">salon de discussion</h1>
 
 
 <?php
@@ -110,9 +110,12 @@ $req_jointe = "SELECT  login,  message, date FROM utilisateurs LEFT JOIN message
 		   	
 			<?php 
 			foreach ( $row as $key ):
+				if (!empty($key[1])) {
+					# code...
 				
-			echo $key[0].':'.$key[1].$key[2]."</br>"
-		     
+				
+			echo $key[0].':'.$key[1].$key[2]."</br>";
+		     }
 		?>
 			
 			
@@ -164,10 +167,10 @@ $req_jointe = "SELECT  login,  message, date FROM utilisateurs LEFT JOIN message
 		<!--<table class="oc-espacecom">-->
           <tr>
             <td>
-              <label  for="entrecom">commentaire :</label>
+              <label class="inputcom"  for="entrecom">commentaire :</label>
         </td>
         <td>
-              <input type="text" name="entrecom" ><!--php pour laisser le text dans l'input-->
+              <input class="inputcom" type="text" name="entrecom" ><!--php pour laisser le text dans l'input-->
             </td>
           </tr>
       </table>
