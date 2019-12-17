@@ -45,46 +45,19 @@ if (isset($_SESSION['id']))
 	 	    if (!empty($_POST["entrecom"])) 		
 	 	    {   
 	 	    	$id_user = $_SESSION['id'];
-
+	 	    	                    //requete d'insertion
 	 	    	$reqcom="INSERT INTO messages(message,id_utilisateur,date) VALUES (\"$bouton\",\"$id_user\",NOW())";
 	 	    	$lecom = mysqli_query($connexion, $reqcom);
-	 	    	header("location: discussion.php");
-	 			 	
+	 	    	header("location: discussion.php");	 			 	
 	 	    }
 	 	    else
 	 	    {
 	    	$erreur="champ vide";
-	        }	 	
-	        
+	        }	 		        
 	}
 	else
 	{}
-unset($bouton);
-
-	                   //AFFICHE DES REQUETTE
-
-	//REQUETTE SELECTION LOGIN UTILSETEURS
-//$req_selcet_log = "SELECT  login FROM utilisateurs where id='".$_SESSION['id']."'";
-//$req_selcet_log_bdd = mysqli_query($connexion,$req_selcet_log);
-//$req_selcet_login_by_id = mysqli_fetch_all($req_selcet_log_bdd);
-
-//$_SESSION['id_utilisateur']=$_SESSION['id'];
-
-	//REQUETTE SELECTION COMMENTAIRE ET DATE
-//$req_selcet_comdate = "SELECT  message FROM messages where date > (NOW() - INTERVAL 1 WEEK)
- //";
-
-	                    //REQUETTE MELANGENT LES DEUX TABLE
- //$req_select_comdate = "SELECT `utilisateurs`.`login`, `messages`.`message`, `messages`.`date` FROM `utilisateurs` , `messages` ORDER BY `date`  DESC LIMIT 35";
-//$req_select_comdate_bdd = mysqli_query($connexion,$req_select_comdate);
-//$req_select_com_by_id = mysqli_fetch_all($req_select_comdate_bdd);
-
-                 //REQUETE JOINTE
-	//$req_jointe_all = mysqli_fetch_all($req_jointe_bdd);
-
-	
-
-
+	unset($bouton);
 
 ?>
 
@@ -94,81 +67,33 @@ unset($bouton);
 		                       <!--ZONE AFFICHE TEXTE-->
 	 <form class="form-affichage" method="POST" action="">
 <?php
-
-
+	        //REQUETTE JOINLES 2 TABLE
 $req_jointe = "SELECT  login,  message, date FROM utilisateurs LEFT JOIN messages ON utilisateurs.id = messages.id_utilisateur ORDER BY `date`  DESC LIMIT 35";
 	$req_jointe_bdd = mysqli_query($connexion,$req_jointe);
 
 	 	$row = mysqli_fetch_all($req_jointe_bdd);
-	 	
-	 
-
  ?>
-	
-		
-		   <table>
-		   	
+                     <!--AFFICHE DE LA DATA BASE-->
+		   <table>		   	
 			<?php 
 			foreach ( $row as $key ){
-				if (!empty($key[1])) {
+				if (!empty($key[1]))
+    				{
 					# code...
-				if ($login == $key[0]) 
+    					if ($login == $key[0]) 
 				//	echo "<strong>".'<font size= "5px" color="red">'.$key.'</font>'."</strong>";
-					{
-					echo "<tr class=\"psedo-affichage\"><td class=\"taillepse\" >".$key[0].":"."</td>"."<td class=\"texttd\" >".$key[1]."</td>"."<td class=\"date-affichage\">".$key[2]."<td>"."</tr>";
-					}
+    			    		{
+    			    			echo "<tr class=\"psedo-affichage\"><td class=\"taillepse\" >".$key[0].":"."</td>"."<td class=\"texttd\" >".$key[1]."</td>"."<td class=\"date-affichage\">".$key[2]."<td>"."</tr>";
+    			    		}
 
-				else{
-			echo "<tr><td class=\"taillepse\">".$key[0].":"."</td>"."<td class=\"texttd\">".$key[1]."</td>"."<td \"date-affichage\">".$key[2]."</td>"."</tr>";
-			  }// } 
-		     		    }
-		}
-		?>
-			
-			
+    			    	else{
+    			    		echo "<tr><td class=\"taillepse\">".$key[0].":"."</td>"."<td class=\"texttd\">".$key[1]."</td>"."<td \"date-affichage\">".$key[2]."</td>"."</tr>";
+			                }// } 
+			         }
+}
+?>			
 		   </table>
-		   <?php  
-
-
-	       ?>
-		 
 	    </div>
-	 
-
-		  <!-- <table>
-		   	      <tr>
-		   	      	  <td>
-		         
-		              </td> -->
-		            
-		            	<!--<?php
-
-		            	// foreach ( $req_jointe_all as $key ): 
-
-		            	 	//foreach ($req_selcet_login_by_id as $key1 ): {
-		            	 		# code...
-		            	 	//}
-		            	 	?>
-
-		            		<tr class="tbladmin">-->
-		<!--	<td class="tbladmin"><?php 
-			//if (empty($_POST['envoicomentaire'])) 
-			//{
-				# code...
-			
-			//echo /*$login.":".$key[1].$key[2] ;*/ $req_jointe_all[0] /*}*/ ?></td>
-			
-			
-
-		</tr>
-		
-	<?php //endforeach ;
-         // endforeach ;	?>
-		           <tr>
-		       
-		           </tr>
-		   </table
-	</div>>-->
 	<div >	
 		<!--<table class="oc-espacecom">-->
           <tr>
@@ -186,20 +111,15 @@ $req_jointe = "SELECT  login,  message, date FROM utilisateurs LEFT JOIN message
     </form>
 </section>
 <?php
-
 }
-
 else 
 {
 	header("location: index.php");
 }
 	if (isset($erreur))
-
 		 {
 			echo "<strong>".'<font size= "5px" color="red">'.$erreur.'</font>'."</strong>";
 		}
-
 ?>
-
 </body>
 </html>

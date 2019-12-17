@@ -110,7 +110,7 @@ nav li a
     height: 14%;
     border: gold;
     box-shadow: #494343 3px 4px;
-    font-family: Apple Chancery, cursive;
+    font-family: Apple Chancery, cursive; 
 }
 
 .er
@@ -122,7 +122,7 @@ nav li a
 .oc-section-index2
 {
   display: flex;
-  
+  padding-left: 4%;
 }
 .oc-image1-actu
 {
@@ -138,6 +138,7 @@ nav li a
     background-color: #152d50;
     border-radius: 4% 4% 4% 4%;
     padding: 2%;
+    margin-right: 1%;
 }
 
 
