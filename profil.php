@@ -1,46 +1,15 @@
 <?php
 session_start();
 
-
-//$samerelapute = mysqli_connect("localhost","root","","discussion");
 $bdd = new PDO('mysql:host=localhost;dbname=discussion;charset=utf8', 'root', '');
-//$reqeco = "SELECT `login` FROM `utilisateurs` where login=$_SESSION['login']";
-//$reqecho = mysqli_query($samerelapute, $reqeco);
-//echo $reqecho;
-//if (empty($_SESSION['id'])) 
-   // {
-      
-    // unset ($_SESSION ['login'] );}
-//      CONECTION BASE DE DONNE MYSQL
 $connexion = mysqli_connect("localhost","root","","discussion");
 
 //      CONECTION BASE DE DONNER PDO
-
 
 if(isset($_SESSION['login'])) 
 {$_SESSION['login'];
   $getid = intval($_SESSION['login']); //securise la variable evite l'injection de text bizare
   $log = $_SESSION['login'];
-
-
-  //requete pdo qui bug
- //$reqecolog =$bdd->prepare("SELECT login FROM utilisateurs where id='".$_SESSION['id']."'");
- //$reqecolog =execute(array($getid)); 
-
-//$convert = array($reqecolog);
-//var_dump($convert);
-//$comma_separated = implode("",$convert);
-//$comma_separated = http_build_query("",$convert)
-
-//$nomuser = $reqecolog->fetch($reqecolog,$bdd); 
- //$reqecolo = $reqecolog->fetch();
- //var_dump($comma_separated);
- //var_dump($reqecolog);
- 
-     
-
- 
- 
     
                 // WHEN YOU PUSH BUTTON test 1
 
@@ -58,40 +27,28 @@ if(isset($_SESSION['login']))
                  //$_SESSION['login']; //= $login;
                  $sessionlogin = $_SESSION['login'];
                           
-
   //   REQUETE ET EXUCUSION EN MYSQLI
  /*  $requetmodif = "UPDATE utilisateurs SET login = '$login', prenom = '$prenom', nom = '$nom', password = '$password' WHERE login = '".$_SESSION['login']."'";
    $inser= mysqli_query($connexion, $requetmodif);  */
-
-                
-               
+  
                          if ( strlen($_POST["newpassword"]) >3 && strlen($_POST["newpassword2"]) >3 && $_POST["newpassword"] == $_POST["newpassword2"])
-                         {
-
-
+                         {      //RESUATTE POUR CHANGER LE LOGIN
                           $requser=$bdd->prepare("UPDATE utilisateurs SET login='$login' where login='$sessionlogin'");
                           $requser->execute(array($getid));// what a fuck (repure infos via url??)
                           $userinfo = $requser->fetch();
                           $_SESSION['login'] = $login;
-                     var_dump($userinfo);
-
-      
+                        //REQUETTE POUR CHANGER LE PASSWORD
                         $reqmdp = $bdd->prepare("UPDATE utilisateurs SET password = '$password' where id=$id");
                         $reqmdp->execute(array($getid));// what a fuck (repure infos via url??)
                         $usermdp = $reqmdp->fetch();
                         $_SESSION['password'] = $password;
 
-                             
-
-
                              $erreur = "le profil a eté modifié !";
 }
-
        else
                  {
                    $erreur = "les mots de passe doivent etre different et doivent faire au moin 4 caractere";
                  } 
-
         }
  
              else
@@ -99,8 +56,6 @@ if(isset($_SESSION['login']))
                    $erreur="completer les trois champ pour modifier";
                 }    
               }
-
-
 else
                 {
                    $erreur="completer les trois champ pour modifier";
@@ -138,7 +93,7 @@ $loginid = mysqli_fetch_row($reqlog);
 
 </header>
 
-       <section>  
+       <section class="section1-profil">  
            <h1 class="titrelogin">modifier votre profil !</h1>
   
         <article class="paneaulogin">
@@ -169,8 +124,7 @@ $loginid = mysqli_fetch_row($reqlog);
               <td>
                 <input type="password" name="newpassword2" placeholder="ecrire votre mot de passe">
               </td>
-          </tr>
-          
+          </tr>         
         </table>
         <br/>
                 <input class="butonconexion-modif" type="submit" name="modif" value="modifier le profil"/>    

@@ -169,12 +169,39 @@ nav li a
   text-align: end;
   margin: auto;
 }
+
+
+/*PARTI PROFIL*/
+.paneaulogin
+{
+  padding-top: 6%;
+}
+
 .titrelogin
 {
   margin: 5%;
+  padding-top: 5%;
 }
 
-
+.section1-profil
+{
+  background-color: #50ade794;
+  width: 45%;
+  height: 55%;
+  margin: auto;
+}
+.butonconexion-modif
+{
+  color: white;
+   font-size: 21px;
+  border-radius: 40% ;
+    background-color: #f20a18;
+    width: 41%;
+    height: 13%;
+    border: gold;
+    box-shadow: #494343 3px 4px;
+    font-family: Apple Chancery, cursive;
+}
 
 /* PARTIE  DISCUTION*/
 
@@ -239,18 +266,7 @@ nav li a
 {
       width: 52%;
 }
-.butonconexion-modif
-{
-  color: white;
-   font-size: 21px;
-  border-radius: 40% 40%;
-    background-color: #f20a18;
-    width: 18%;
-    height: 9%;
-    border: gold;
-    box-shadow: #494343 3px 4px;
-    font-family: Apple Chancery, cursive;
-}
+
 .envoi-comentaire
 {
   font-size: 21px;
