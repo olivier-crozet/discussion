@@ -159,7 +159,7 @@ if (isset($_POST['inscription']))
 			//MESSAGE D'ERREUR!!
 		if (isset($erreur))
 		 {
-			echo "<strong>".'<font size= "5px" color="red">'.$erreur.'</font>'."</strong>";
+			echo "<strong>".'<font size= "5px" color="white">'.$erreur.'</font>'."</strong>";
 		}
 	?>
 	    

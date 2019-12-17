@@ -179,9 +179,9 @@ nav li a
 
 .titrelogin
 {
-  margin: 5%;
-  padding-top: 5%;
-}
+  margin: 2%;
+  padding-top: 1%;
+  }
 
 .section1-profil
 {
@@ -195,7 +195,7 @@ nav li a
   color: white;
    font-size: 21px;
   border-radius: 40% ;
-    background-color: #f20a18;
+    background-color: #f20a189e;
     width: 41%;
     height: 13%;
     border: gold;

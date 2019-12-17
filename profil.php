@@ -138,7 +138,7 @@ $loginid = mysqli_fetch_row($reqlog);
 
     if (isset($erreur))
      {
-      echo '<font color="red">'.$erreur.'</font>';
+      echo '<font color="white">'.$erreur.'</font>';
     }
   ?>
       
