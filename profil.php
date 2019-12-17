@@ -108,7 +108,7 @@ else
                 $reqecolog = "SELECT  login FROM utilisateurs where id='".$_SESSION['id']."'";
 $reqlog = mysqli_query($connexion,$reqecolog);
 $loginid = mysqli_fetch_row($reqlog);
-var_dump($loginid);
+
 ?>
 <html>
 <head>

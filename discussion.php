@@ -23,7 +23,7 @@ $login = $_SESSION['login'];
           --><?php if (!isset($_SESSION['login'])) { echo "<li ><a href=\"inscription.php\">inscription</a></li>";} ?><!--
            --><li ><a href="profil.php">profil</a></li>
               <?php if (!empty($_SESSION['login'] )){echo "<li ><a href=\"discussion.php\">discussion</a></li>";}?>
-           <?php  if  (isset($_SESSION['id'])) { echo  '<li>'.'<a href= "">'."connecté".'</a>'.'</li>';} ?>
+           <?php  if  (isset($_SESSION['id'])) { echo  '<li>'.'<a href= "">'.$login.'</a>'.'</li>';} ?>
            </ul>
        </nav>
    </header>
@@ -92,7 +92,7 @@ unset($bouton);
 	        <h2>theme</h2>
 	<div class="oc-div-zonetext1">
 		                       <!--ZONE AFFICHE TEXTE-->
-	 <form method="POST" action="">
+	 <form class="form-affichage" method="POST" action="">
 <?php
 
 
@@ -109,19 +109,25 @@ $req_jointe = "SELECT  login,  message, date FROM utilisateurs LEFT JOIN message
 		   <table>
 		   	
 			<?php 
-			foreach ( $row as $key ):
+			foreach ( $row as $key ){
 				if (!empty($key[1])) {
 					# code...
-				
-				
-			echo $key[0].':'.$key[1].$key[2]."</br>";
-		     }
+				if ($login == $key[0]) 
+				//	echo "<strong>".'<font size= "5px" color="red">'.$key.'</font>'."</strong>";
+					{
+					echo "<tr class=\"psedo-affichage\"><td class=\"taillepse\" >".$key[0].":"."</td>"."<td class=\"texttd\" >".$key[1]."</td>"."<td class=\"date-affichage\">".$key[2]."<td>"."</tr>";
+					}
+
+				else{
+			echo "<tr><td class=\"taillepse\">".$key[0].":"."</td>"."<td class=\"texttd\">".$key[1]."</td>"."<td \"date-affichage\">".$key[2]."</td>"."</tr>";
+			  }// } 
+		     		    }
+		}
 		?>
 			
 			
 		   </table>
 		   <?php  
-		    endforeach ;
 
 
 	       ?>

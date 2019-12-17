@@ -100,7 +100,7 @@ $erreur="<p class='codeerreur'>vous n'etes pas connecté !";
 
 	   	else
 	   	{
-			$erreur = "<br/>tous les champ doives etre completés !";
+			$erreur = "<p class=\"er\"><br/>tous les champ doives etre completés !";
 			}
 		
 	}

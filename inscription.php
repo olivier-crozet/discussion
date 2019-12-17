@@ -151,7 +151,7 @@ if (isset($_POST['inscription']))
 	      	
 	      </table>
 	      <br/>
-	      	      <input class="buton-inscription" type="submit" name="inscription" value="s'inscrire"/>		
+	      	      <input  class="buton-inscription" type="submit" name="inscription" value="s'inscrire"/>		
 	      	</form>
 
 
