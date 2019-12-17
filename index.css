@@ -68,7 +68,8 @@ nav li a
 
 .div-tableau-connexion
 {
-    width: 90%;
+    width: 119%;
+    margin-left: -7%;
     background-color: #8fe2fb6e;
     padding: 1%;
     height: 300PX;
@@ -78,6 +79,11 @@ nav li a
 {
   display: flex;
   justify-content: space-around;
+  flex-direction: row-reverse;
+}
+.oc-div-article1
+{
+  padding: 3%;
 }
 .oc-article-actu
 {
@@ -85,12 +91,11 @@ nav li a
     background-color: #11173187;
     height: 300px;
     overflow: overlay;
-    border-radius: 4% 4%;
 }
 .butonconexion
 {
   border-radius: 40% 40%;
-    background-color: #82df90;
+    background-color: #82df9096;
     width: 58%;
     height: 14%;
     border: gold;
@@ -100,18 +105,39 @@ nav li a
 .butonconexion2
 {
    border-radius: 40% 40%;
-    background-color: #fb3939;
+    background-color: #fb3939d4;
     width: 58%;
     height: 14%;
     border: gold;
     box-shadow: #494343 3px 4px;
     font-family: Apple Chancery, cursive;
 }
+
 .er
 {
   position: absolute;
     margin-top: 23%;
     margin-left: -36%;
+}
+.oc-section-index2
+{
+  display: flex;
+  
+}
+.oc-image1-actu
+{
+      width: 31%;
+    border-radius: 10%;
+    height: 288px;
+    margin: auto;
+    padding-left: 1%;
+}
+.oc-div-article2
+{
+      margin: 5%;
+    background-color: #152d50;
+    border-radius: 4% 4% 4% 4%;
+    padding: 2%;
 }
 
 
