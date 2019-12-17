@@ -143,16 +143,6 @@ De plus en plus d’exemples dans la justice, la santé, l’éducation et la fi
            </article>
 </section>
 
-          		<!--PHP-->
-
-<?php
-
-   if (isset($erreur))
-    	{
-      	echo $erreur;
-    	}
-
-?>
 <footer>
  <!-- <div>
 	<img class="ballon" src="image/foot-01.gif">  
